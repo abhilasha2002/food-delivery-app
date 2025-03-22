@@ -1,0 +1,23 @@
+{
+  "name": "namste-react",
+  "version": "1.0.0",
+  "description": "This is namaste react",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/abhilasha2002/namaste-react.git)"
+  },
+  "author": "Abhilasha Choudhary",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-react-refresh-wrap": "^2.14.1",
+    "parcel": "^2.14.1"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
