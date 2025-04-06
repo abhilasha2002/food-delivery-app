@@ -50,3 +50,14 @@ gap:10px;
 .user-card{
     border: 2px solid black;
 }
+.shimer-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.shimer-card{
+    margin:5px;
+    padding:5px;
+    width:200px;
+    height:350px;
+    background-color: beige;
+}

@@ -2,6 +2,8 @@
 import RestaurantCard from "./RestaurantCard";
 import zomatoResData, { oneCard } from "../utils/mockData";
 import { useState, useEffect } from "react";
+import {Link} from 'react-router'
+import Shimer from './Shimer';
 let listOfRes = [
   {
     info: {
@@ -124,7 +126,7 @@ const Body = () => {
       console.log('json',json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle.restaurants);
   }
   console.log('filteredRes', filteredRes,listOfRestaurants)
-  // if(filteredRes.length===0) return <Shimer/>
+  if(filteredRes.length===0) return <Shimer/>
   return (
     <div className="body">
       <div className="filter">
@@ -155,8 +157,8 @@ const Body = () => {
       <div className="res-container">
         {
         filteredRes.map((restaurant) => (
-          // console.log(restaurant);
-          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+          
+          <Link key={restaurant.info.id} to={`/restaurant/${restaurant.info.id}`}><RestaurantCard key={restaurant.info.id} resData={restaurant} /></Link>
         ))}
         {/* <RestaurantCard  resData={oneResData} /> */}
       </div>

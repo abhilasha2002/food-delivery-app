@@ -7,7 +7,7 @@ class About extends React.Component{
         console.log('Constructor parent');
     }
     componentDidMount(){
-        console.log("ComponentDId mount parent")
+        console.log("ComponentDId mount parent");
     }
     render(){
         console.log('render parent');

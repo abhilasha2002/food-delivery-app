@@ -1,9 +1,18 @@
-const Shimer=()=>{
-    return (
-        <div className="res-card" >
-
-        </div>
-    )
-
-}
+const Shimer = () => {
+  return (
+    <div className="shimer-container">
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+      <div className="shimer-card"></div>
+    </div>
+  );
+};
 export default Shimer;
