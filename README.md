@@ -18,3 +18,21 @@ It also takes help from its other dependent libraries for these funcionalities
 -Tree Shaking
 -Different dev and prod bundles
 -lazy dev build
+
+# Food delivery app
+
+ Header
+  - Logo
+  - Nav bar
+ Body
+  -Search bar
+  -RestaurantContainer
+     -RestaurantCard
+          -image
+          - name of res, star rating, cuisines,delivery time
+ Footer
+  -Copyright
+  -Links
+  -Adress
+  -Contact
+ 

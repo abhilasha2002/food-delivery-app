@@ -23,6 +23,7 @@
     width: 200px;
     padding:5px;
     margin:5px;
+    background-color: beige;
 
 }
 .res-card:hover{
@@ -41,4 +42,11 @@
 display:flex;
 flex-wrap: wrap;
 gap:10px;
+}
+.login{
+    padding:0px 20px;
+    cursor: pointer;
+}
+.user-card{
+    border: 2px solid black;
 }
