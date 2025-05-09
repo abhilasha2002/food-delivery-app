@@ -2,8 +2,9 @@
 import RestaurantCard from "./RestaurantCard";
 import zomatoResData, { oneCard } from "../utils/mockData";
 import { useState, useEffect } from "react";
-import {Link} from 'react-router'
-import Shimer from './Shimer';
+import { Link } from "react-router";
+import Shimer from "./Shimer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 let listOfRes = [
   {
     info: {
@@ -112,33 +113,56 @@ let listOfRes = [
 ];
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
-  const [filteredRes,setFilteredRes]=useState([]);
+  const [filteredRes, setFilteredRes] = useState([]);
   const [searchText, setSearchText] = useState("");
-  useEffect(()=>{
-      fetchData();
-  },[]);
-  const fetchData= async()=>{
-      const data= await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9304278&lng=77.678404&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING#");
-      const json=await data.json();
-      const dataPath=json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle.restaurants;
-      setListOfRestaurants(dataPath);
-      setFilteredRes(dataPath);
-      console.log('json',json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle.restaurants);
-  }
-  console.log('filteredRes', filteredRes,listOfRestaurants)
-  if(filteredRes.length===0) return <Shimer/>
+  const onlineStatus=useOnlineStatus();
+   const RestaurantCardPromoted=withPromotedLabel(RestaurantCard);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9304278&lng=77.678404&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING#"
+    );
+    const json = await data.json();
+    const dataPath =
+      json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle.restaurants;
+    setListOfRestaurants(dataPath);
+    setFilteredRes(dataPath);
+    console.log(
+      "json",
+      json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle.restaurants
+    );
+  };
+  if (filteredRes.length === 0) return <Shimer />;
+  console.log('onlineStatus',onlineStatus);
+  if(onlineStatus===false) return(<h1>Looks like you are offline!! Please connect to internet connection</h1>);
   return (
     <div className="body">
-      <div className="filter">
-        <div className="search-container">
-          <input type="text" value={searchText} onChange={(e)=>setSearchText(e.target.value)} />
-          <button className="filter-btn" onClick={()=>{
-            const searchData=listOfRestaurants.filter((res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase()))
-            setFilteredRes(searchData);
-          }}>Search</button>
+      <div className="filter flex items-center">
+        <div className="search flex items-center p-4 m-4">
+          <input
+          className="border-2 border-solid border-black rounded-m"
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <button
+            className="px-2  m-2 bg-green-200 rounded-lg text-2xl text-bold hover:bg-green-300"
+            onClick={() => {
+              const searchData = listOfRestaurants.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+              );
+              setFilteredRes(searchData);
+            }}
+          >
+            Search
+          </button>
         </div>
+        <div className="">
         <button
-          className="filter-btn"
+          className="px-4 m-4 bg-gray-300 rounded-lg text-2xl text-bold hover:bg-gray-400"
           onClick={() => {
             //Filter logic
 
@@ -153,16 +177,31 @@ const Body = () => {
         >
           Top rated button
         </button>
+        </div>
       </div>
-      <div className="res-container">
-        {
-        filteredRes.map((restaurant) => (
-          
-          <Link key={restaurant.info.id} to={`/restaurant/${restaurant.info.id}`}><RestaurantCard key={restaurant.info.id} resData={restaurant} /></Link>
+      <div className="flex flex-wrap">
+        {filteredRes.map((restaurant) => (
+          <Link
+            key={restaurant.info.id}
+            to={`/restaurant/${restaurant.info.id}`}
+          >
+            {restaurant.info.promoted?<RestaurantCardPromoted resData={restaurant}/>:
+            <RestaurantCard key={restaurant.info.id} resData={restaurant} />}
+          </Link>
         ))}
-        {/* <RestaurantCard  resData={oneResData} /> */}
       </div>
     </div>
   );
 };
+// higher order component
+export const withPromotedLabel=(RestaurantCard)=>{
+  return (props)=>{
+      return(
+          <div>
+              <label>Promoted</label>
+              <RestaurantCard {...props}/>
+          </div>
+      )
+  }
+}
 export default Body;
