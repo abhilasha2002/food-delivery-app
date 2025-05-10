@@ -27,7 +27,7 @@ const AppLayout = () => {
     </Provider>
   );
 };
-const appRoutes= createBrowserRouter([
+ export const appRoutes= createBrowserRouter([
   {
     path:"/",
     Component:AppLayout,
