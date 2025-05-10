@@ -6,7 +6,7 @@ const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
 console.log('togglesate',toggleItem)
   const handleClick = () => {
     setShowIndex();
-    setToggleItem(!toggleItem);
+    // setToggleItem(!toggleItem);
     };
 
   return (
@@ -20,7 +20,7 @@ console.log('togglesate',toggleItem)
         </h1>
         ⬇️
       </div>
-      {showItems && toggleItem && <ItemList items={data.itemCards} />}
+      {showItems  && <ItemList items={data.itemCards} />}
     </div>
   );
 };

@@ -1,6 +1,11 @@
+import { useDispatch } from "react-redux";
 import { Image_URL } from "../utils/constants";
+import { addItem } from "../utils/createCart";
 const ItemList = ({ items }) => {
-
+  const dispatch=useDispatch();
+  const handleAddClick=(item)=>{
+    dispatch(addItem(item));
+  }
   return (
     <div className="py-2   ">
       {items &&
@@ -22,7 +27,9 @@ const ItemList = ({ items }) => {
             </div>
             <div className="w-3/12  items-center  m-4">
             <div className="absolute">
-              <button className="bg-black text-white p-1 shadow-lg absolute mx-12  rounded-lg"> Add+</button></div>
+              <button className="bg-black text-white p-1 shadow-lg absolute mx-12  rounded-lg"
+              onClick={()=>handleAddClick(item)}
+              > Add+</button></div>
               <img
                 className="w-full"
                 src={Image_URL + item.card.info.imageId}
